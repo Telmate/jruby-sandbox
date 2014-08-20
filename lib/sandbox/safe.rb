@@ -24,15 +24,6 @@ module Sandbox
       # Whitelisting using #keep_methods is safer.
       remove_method(:Object, :java_import)
 
-      Kernel.class_eval do
-        def `(*args)
-          raise NoMethodError, "` is unavailable"
-        end
-
-        def system(*args)
-          raise NoMethodError, "system is unavailable"
-        end
-      end
     end
 
     def activate_fakefs
