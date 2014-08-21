@@ -9,7 +9,7 @@ module Sandbox
 
       keep_singleton_methods(:Kernel, KERNEL_S_METHODS)
       keep_singleton_methods(:Symbol, SYMBOL_S_METHODS)
-      keep_singleton_methods(:String, STRING_S_METHODS)
+      #keep_singleton_methods(:String, STRING_S_METHODS)
       keep_singleton_methods(:IO, IO_S_METHODS)
 
       keep_methods(:Kernel, KERNEL_METHODS)
@@ -18,7 +18,7 @@ module Sandbox
       keep_methods(:TrueClass, TRUECLASS_METHODS)
       keep_methods(:FalseClass, FALSECLASS_METHODS)
       keep_methods(:Enumerable, ENUMERABLE_METHODS)
-      keep_methods(:String, STRING_METHODS)
+      #keep_methods(:String, STRING_METHODS)
 
       # FIXME: Blacklisting Object methods is not a scalable solution.
       # Whitelisting using #keep_methods is safer.
@@ -118,6 +118,7 @@ module Sandbox
       new
       foreach
       open
+      to_s
     ]
 
     KERNEL_S_METHODS = %w[
@@ -151,20 +152,28 @@ module Sandbox
       sub
       sub!
       throw
+      initialize_dup
+      method
+      !~
+      to_s
     ].freeze
 
     SYMBOL_S_METHODS = %w[
       all_symbols
+      to_s
     ].freeze
 
     STRING_S_METHODS = %w[
       new
+      include
+      to_s
     ].freeze
 
     KERNEL_METHODS = %w[
       ==
       ===
       =~
+      !~
       Array
       binding
       block_given?
@@ -235,9 +244,12 @@ module Sandbox
       type
       untaint
       __send__
+
+      initialize_dup
     ].freeze
 
     NILCLASS_METHODS = %w[
+      ==
       &
       inspect
       nil?
@@ -247,9 +259,13 @@ module Sandbox
       to_s
       ^
       |
+
+      blank?
+      present?
     ].freeze
 
     SYMBOL_METHODS = %w[
+      ==
       ===
       id2name
       inspect
@@ -257,6 +273,10 @@ module Sandbox
       to_int
       to_s
       to_sym
+      to_proc
+
+      blank?
+      present?
     ].freeze
 
     TRUECLASS_METHODS = %w[
@@ -264,6 +284,9 @@ module Sandbox
       to_s
       ^
       |
+
+      blank?
+      present?
     ].freeze
 
     FALSECLASS_METHODS = %w[
@@ -271,6 +294,9 @@ module Sandbox
       to_s
       ^
       |
+
+      blank?
+      present?
     ].freeze
 
     ENUMERABLE_METHODS = %w[
@@ -296,6 +322,14 @@ module Sandbox
       sort_by
       to_a
       zip
+      sum
+      group_by
+      many?
+      none?
+      each_with_object
+      index_by
+      to_s
+      to_set
     ].freeze
 
     STRING_METHODS = %w[
@@ -306,6 +340,7 @@ module Sandbox
       <=>
       ==
       =~
+      !~
       capitalize
       capitalize!
       casecmp
@@ -385,6 +420,23 @@ module Sandbox
       upto
       []
       []=
+
+      pluralize
+      singularize
+      camelize
+      titleize
+      underscore
+      dasherize
+      demodulize
+      parameterize
+      tabelize
+      classify
+      humanize
+      foreign_key
+      constantize
+
+      blank?
+      present?
     ].freeze
   end
 end
