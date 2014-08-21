@@ -54,6 +54,13 @@ module Sandbox
           const_set(:File,      FakeFS::File)
           const_set(:FileUtils, FakeFS::FileUtils)
           const_set(:FileTest,  FakeFS::FileTest)
+
+        end
+
+        class Object
+          def require(path)
+            true
+          end
         end
 
         [Dir, File, FileUtils, FileTest].each do |fake_class|
