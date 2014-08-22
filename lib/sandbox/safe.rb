@@ -163,6 +163,7 @@ module Sandbox
       method
       !~
       to_s
+      silence_warnings
     ].freeze
 
     SYMBOL_S_METHODS = %w[
@@ -253,6 +254,7 @@ module Sandbox
       __send__
 
       initialize_dup
+      silence_warnings
     ].freeze
 
     NILCLASS_METHODS = %w[
