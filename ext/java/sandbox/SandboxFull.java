@@ -84,6 +84,12 @@ public class SandboxFull extends RubyObject {
     importClassPath(name, false);
     return getRuntime().getNil();
   }
+  
+  @JRubyMethod(required=2)
+  public IRubyObject define_ref(IRubyObject nameStr, IRubyObject value) {
+    wrapped.defineGlobalConstant(nameStr.asJavaString(), value);
+    return getRuntime().getNil();
+  }
 
   @JRubyMethod(required=1)
   public IRubyObject ref(IRubyObject klass) {

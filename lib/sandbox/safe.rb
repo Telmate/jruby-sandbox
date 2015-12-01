@@ -92,8 +92,9 @@ module Sandbox
 
     def sandbox_timeout(name, seconds)
       val, exc = nil
-
+      caller_thread_name = Java::JavaLang::Thread.currentThread.name 
       thread = Thread.start(name) do
+        Java::JavaLang::Thread.currentThread.name = "#{caller_thread_name}@sandbox"
         begin
           val = yield
         rescue Exception => exc
